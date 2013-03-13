@@ -1,20 +1,20 @@
 fs     = require 'fs'
 {exec} = require 'child_process'
 
-appFiles  = [
-  # omit src/ and .coffee to make the below lines a little shorter
-  'static/coffee/App.coffee'
-  'static/coffee/CrdFile/CrdFile.coffee'
-  'static/coffee/CrdFile/CrdFileReader.coffee'
-  'static/coffee/CrdFile/CrdFileStorage.coffee'
-  'static/coffee/Parser/CrdFileParser.coffee'
-  'static/coffee/Song/Line.coffee'
-  'static/coffee/Song/Section.coffee'
-  'static/coffee/Song/Song.coffee'
-  'static/coffee/Settings.coffee'
-  'static/coffee/SongWriter.coffee'
-  'static/coffee/init.coffee'
+appFiles = [
+  'src/App.coffee'
+  'src/CrdFile/CrdFile.coffee'
+  'src/CrdFile/CrdFileReader.coffee'
+  'src/CrdFile/CrdFileStorage.coffee'
+  'src/Parser/CrdFileParser.coffee'
+  'src/Song/Line.coffee'
+  'src/Song/Section.coffee'
+  'src/Song/Song.coffee'
+  'src/Settings.coffee'
+  'src/SongWriter.coffee'
+  'src/init.coffee'
 ]
+
 task 'build', 'Build single application file from source files', ->
   appContents = new Array remaining = appFiles.length
   for file, index in appFiles then do (file, index) ->
@@ -24,11 +24,11 @@ task 'build', 'Build single application file from source files', ->
       appContents[index] = fileContents
       process() if --remaining is 0
   process = ->
-    fs.writeFile 'static/coffee/combined.coffee', appContents.join('\n\n'), 'utf8', (err) ->
+    fs.writeFile 'src/combined.coffee', appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err
-      exec 'coffee -co static/js static/coffee/combined.coffee', (err, stdout, stderr) ->
+      exec 'coffee -co app/static/js src/combined.coffee', (err, stdout, stderr) ->
         throw err if err
         console.log stdout + stderr
-        fs.unlink 'static/coffee/combined.coffee', (err) ->
+        fs.unlink 'src/combined.coffee', (err) ->
           throw err if err
           console.log 'Done.'

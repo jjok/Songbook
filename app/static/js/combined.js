@@ -420,7 +420,6 @@
       lyrics = $(document.createElement("div"));
       lyrics.text(line.getLyrics());
       lyrics.addClass("lyrics");
-      console.log(lyrics.first());
       return [chords, lyrics];
     };
 
