@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="static/css/layout.css" />
+<script src="static/js/modernizr.js"></script>
+<script src="static/js/ender.min.js"></script>
+<script src="static/js/hammer.min.js"></script>
+</head>
+<body>
+	<div id="app" class="showing-panel">
+		<div id="panel">
+			<form>
+				<fieldset>
+					<label for="file-input">Add a song</label>
+					<input type="file" id="file-input" />
+					<ul>
+						<li><a href="songs/faithful-one.crd">song 1</a></li>
+						<li><a href="songs/let-your-glory-fall.crd">song 2</a></li>
+						<li><a href="songs/the-power-of-your-love.crd">song 3</a></li>
+					</ul>
+				</fieldset>
+			</form>
+			<div id="songbook"><p>You haven&#39;t loaded any songs yet.</p></div>
+		</div>
+		<div id="songsheet"></div>
+	</div>
+	<script src="static/js/combined.js"></script>
+</body>
+</html>
