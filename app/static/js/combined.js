@@ -239,7 +239,7 @@
       var section, sections, song, _i, _len;
       sections = file.split("\r\n\r\n");
       song = new Song;
-      song.setTitle(sections.shift());
+      song.setTitle(sections.shift().slice(1, -1));
       for (_i = 0, _len = sections.length; _i < _len; _i++) {
         section = sections[_i];
         song.addSection(this.__parseSection(section));
@@ -272,9 +272,9 @@
     CrdFileParser.prototype.__parseChar = function(char, line) {
       switch (char) {
         case "[":
-          return line.setCurrent("chords");
+          return line.switchToChords();
         case "]":
-          return line.setCurrent("lyrics");
+          return line.switchToLyrics();
         default:
           return line.add(char);
       }
@@ -296,6 +296,15 @@
 
     Line.prototype.setCurrent = function(mode) {
       return this.__current = mode;
+    };
+
+    Line.prototype.switchToLyrics = function() {
+      return this.__current = "lyrics";
+    };
+
+    Line.prototype.switchToChords = function() {
+      this.setCurrent("chords");
+      return this.__chords = this.__chords.slice(0, -1);
     };
 
     Line.prototype.add = function(char) {

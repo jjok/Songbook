@@ -10,7 +10,7 @@ class CrdFileParser
 		sections = file.split "\r\n\r\n"
 		#console.log sections
 		song = new Song
-		song.setTitle sections.shift()
+		song.setTitle sections.shift().slice 1, -1
 		song.addSection @__parseSection section for section in sections
 		#console.log song
 		
@@ -30,9 +30,7 @@ class CrdFileParser
 	#
 	# @return Line
 	#
-	__parseLine: (raw_line) ->
-		#console.log "new line"
-		
+	__parseLine: (raw_line) ->		
 		line = new Line
 		@__parseChar char, line for char in raw_line.split ""
 		#console.log line
@@ -44,8 +42,9 @@ class CrdFileParser
 	#
 	__parseChar: (char, line) ->
 		switch char
-			when "[" then line.setCurrent "chords"
-			when "]" then line.setCurrent "lyrics"
+			#when "[" then line.setCurrent "chords"
+			when "[" then line.switchToChords()
+			#when "]" then line.setCurrent "lyrics"
+			when "]" then line.switchToLyrics()
 			else line.add char
-		#console.log char
 	

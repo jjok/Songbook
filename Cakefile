@@ -23,6 +23,7 @@ task 'build', 'Build single application file from source files', ->
       throw err if err
       appContents[index] = fileContents
       process() if --remaining is 0
+
   process = ->
     fs.writeFile 'src/combined.coffee', appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err

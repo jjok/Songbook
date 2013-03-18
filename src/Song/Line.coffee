@@ -7,16 +7,28 @@ class Line
 	
 	__lyrics: ""
 	
+	#
+	# The current write mode.
+	# @var {String}
+	#
 	__current: "lyrics"
-		
+	
+	#
+	# Set the current line write mode
+	# @param {String} mode The mode to be set. "chords"|"lyrics"
+	#
 	setCurrent: (mode) ->
 		@__current = mode
 	
-	add: (char) ->
+	switchToLyrics: ->
+		@__current = "lyrics"
 	
-		#FIXME Not sure where to do this...
-		#if char is "["
-		#	@__chords = @__chords.slice 0, -1
+	# 
+	switchToChords: ->
+		@setCurrent "chords"
+		@__chords = @__chords.slice 0, -1
+	
+	add: (char) ->
 		if @__current is "chords"
 			@__chords += char
 			

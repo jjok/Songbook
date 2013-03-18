@@ -19,6 +19,7 @@ class App
 
 	#
 	# Initialise the application.
+	# @todo Move all this to init.coffee and make the methods public.
 	#
 	initialise: ->
 		console.log "initialising app"
@@ -47,7 +48,7 @@ class App
 		@__app.removeClass "showing-panel" if @__selected_song isnt null and @__app.hasClass "showing-panel"
 	
 	#
-	# 
+	# @todo Only display songs if there are some.
 	#
 	__displaySongThumbs: ->
 		#console.log "__displaySongThumbs"

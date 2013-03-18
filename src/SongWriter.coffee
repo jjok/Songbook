@@ -4,7 +4,11 @@
 #
 class SongWriter
 
-
+	#
+	# Create an article element for the song.
+	# @param {Song}
+	# @return {Element}
+	#
 	toHtml: (song) ->
 		html_song = $ document.createElement "article"
 		title = $ document.createElement "h1"
@@ -13,14 +17,23 @@ class SongWriter
 		html_song.append @__buildSection section for section in song.getSections()
 		
 		return html_song
-		
+	
+	#
+	# Convert a song section to a section element.
+	# @param {Section}
+	# @return {Element} The section element.
+	#
 	__buildSection: (section) ->
-		#console.log section
 		html_section = $ document.createElement "section"
 		html_section.append el[0] for el in @__buildLine line for line in section.getLines()
 		
 		return html_section
 	
+	#
+	# Convert a Line to two divs.
+	# @param {Line} The song line.
+	# @return {Array}
+	#
 	__buildLine: (line) ->
 		chords = $ document.createElement "div"
 		chords.text line.getChords()
@@ -30,10 +43,4 @@ class SongWriter
 		lyrics.text line.getLyrics()
 		lyrics.addClass "lyrics"
 		
-		#TODO get rid of this
-		#container = $ document.createElement "div"
-		#container.append chords
-		#container.append lyrics
-		
-		#return container
 		[chords, lyrics]
