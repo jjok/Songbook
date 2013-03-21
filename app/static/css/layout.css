@@ -1,27 +1,27 @@
 @charset "UTf-8";
 
-html { height:100%; font:normal 62.5%/1.3em "Segoe UI", Helvetica-Light, sans-serif; }
-body { overflow-x:hidden; margin:0; padding:0; height:100%; font-size:2em; line-height:1.3em; }
+html { overflow:hidden; height:100%; font:normal 62.5%/1.3em "Segoe UI", Helvetica-Light, sans-serif; }
+body { overflow/*-x*/:hidden; margin:0; padding:0; height:100%; font-size:2em; line-height:1.3em; }
 
-#app { position:relative; left:-80%; width:180%; height:100%; transition:left 300ms; }
-#app.showing-panel { left:0; transition:left 300ms; }
+#app { position:relative; left:-80%; width:180%; height:100%; transition:left 350ms; }
+#app.showing-panel { left:0; transition:left 350ms; }
 
-#panel { position:absolute; top:0; right:50%; bottom:0; left:0; padding:0 3em; background-color:#666/*#C00*/; color:#FFF; }
-/*#panel form { }*/
+#panel { position:absolute; top:0; right:50%; bottom:0; left:0; padding:0 3em; background-color:#666; color:#FFF; }
 #panel fieldset { margin:0; border:none; padding:0; }
-#panel label { display:inline-block; padding:1em; background-color:#333/*06F*/; cursor:pointer; }
+#panel label { display:inline-block; padding:1em; background-color:#333; cursor:pointer; }
 #panel input { position:relative; top:-50px; opacity:0; }
-/*test*/
-#panel form ul { float:right; }
-#panel form ul li { display:inline; }
+/*test songs */
+#panel form p { float:right; }
 
+/* Songbook */
 #songbook { overflow-x:hidden; overflow-y:auto; position:absolute; top:4em; right:3em; bottom:1em; left:3em; }
 #songbook ul { margin:0; padding:0; list-style:none; }
 #songbook li { position:relative; display:inline-block; width:33.33%; }
 #songbook article { overflow:hidden; margin:0.5em; padding:1em; height:15em; background-color:#FFF; font-size:1.3rem; line-height:1.5em; color:#000;/*text-overflow:ellipsis;*/ cursor:pointer; }
 #songbook a { display:inline-block; position:absolute; right:0; top:0; border-radius:0.75em; width:1.5em; height:1.5em; line-height:1.5em; background:rgba(0, 0, 0, 0.6); text-align:center; font-family:sans-serif; color:#FFF; cursor:pointer; }
 
-#songsheet { position:absolute; top:0; right:0; bottom:0; left:50%; overflow:auto; padding:1em 3em; font-size:1.5rem; line-height:1.5em; }
+/* Songsheet */
+#songsheet { position:absolute; top:0; right:0; bottom:0; left:50%; overflow:auto; padding:1em 3em; font-size:1.5rem; line-height:1.1em; }
 #songsheet article { -moz-column-count:2; column-count:2; }
 #songsheet section { margin:1em 0; break-inside:avoid; }
 /* Workaround for no break-inside support */
@@ -30,3 +30,4 @@ body { overflow-x:hidden; margin:0; padding:0; height:100%; font-size:2em; line-
 article h1 { margin:0.5em 0; font-size:2em; font-weight:100; line-height:1.3em; }
 
 .chords, .lyrics { font-family:monospace; white-space:pre; }
+.lyrics { margin-bottom:0.5em; }
