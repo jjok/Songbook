@@ -2,7 +2,8 @@
 # Initialise the application.
 #
 
-if Modernizr.filereader and Modernizr.localstorage
+	unless Modernizr.filereader and Modernizr.localstorage
+	    alert "Look, I'm all for \"keeping it old skool\", but you're going to have to update your browser to the latest version, to use this app."
 		
 	#input = $ 'input[type="file"]'
 	#console.log input
@@ -14,15 +15,11 @@ if Modernizr.filereader and Modernizr.localstorage
 
 	# debug
 	@app = app
-	#console.log app
+	console.log app
 	
 	# FireFoxFix
 	if !!navigator.userAgent.match /firefox/i
-		label = $ "label[for='file-input']"
-		console.log "FireFoxFix"
-		label.on "click", ->
-			$("#file-input")[0].click()
-	
-
-else
-	alert "Look, I'm all for \"keeping it old skool\", but you're going to have to update your browser to the latest version, to use this app."
+	    label = $ "label[for='file-input']"
+	    console.log "FireFoxFix"
+	    label.on "click", ->
+	        $("#file-input")[0].click()

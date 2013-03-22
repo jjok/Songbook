@@ -25,11 +25,11 @@ task 'build', 'Build single application file from source files', ->
       process() if --remaining is 0
 
   process = ->
-    fs.writeFile 'src/combined.coffee', appContents.join('\n\n'), 'utf8', (err) ->
+    fs.writeFile 'combined.coffee', appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err
-      exec 'coffee -co app/static/js src/combined.coffee', (err, stdout, stderr) ->
+      exec 'coffee --compile --output app/static/js combined.coffee', (err, stdout, stderr) ->
         throw err if err
         console.log stdout + stderr
-        fs.unlink 'src/combined.coffee', (err) ->
+        fs.unlink 'combined.coffee', (err) ->
           throw err if err
           console.log 'Done.'

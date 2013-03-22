@@ -23,38 +23,43 @@ class App
 	#
 	initialise: ->
 		console.log "initialising app"
-		@__songs_container = $ "#songbook"
-		@__song_container = $ "#songsheet"
-		@__displaySongThumbs()
+		@__el_songbook = $ "#songbook"
+		@__el_songsheet = $ "#songsheet"
+		@__drawSongbook()
 		@__crd_file_reader.activate @__addSong
 		
-		@__app = $ "#app"
-		@__panel = $ "#panel"
+		@__el_app = $ "#app"
+		@__el_panel = $ "#panel"
 		
 		if @__touch_support
 			doc = Hammer document
 			doc.on "swiperight", @__showPanel
 			doc.on "swipeleft", @__showSongsheet
 		else
-			@__panel.on "mouseenter", @__showPanel
-			@__song_container.on "mouseenter", @__showSongsheet
+			@__el_panel.on "mouseenter", @__showPanel
+			@__el_songsheet.on "mouseenter", @__showSongsheet
 		
 	__showPanel: =>
 	#	console.log "__showPanel"
-		@__app.addClass "showing-panel" if !@__app.hasClass "showing-panel"
+		@__el_app.addClass "showing-panel" if !@__el_app.hasClass "showing-panel"
 		
 	__showSongsheet: =>
 	#	console.log "__showSongsheet"
-		@__app.removeClass "showing-panel" if @__selected_song isnt null and @__app.hasClass "showing-panel"
+		@__el_app.removeClass "showing-panel" if @__selected_song isnt null and @__el_app.hasClass "showing-panel"
 	
 	#
 	# @todo Only display songs if there are some.
 	#
-	__displaySongThumbs: ->
-		#console.log "__displaySongThumbs"
-		ul = $ document.createElement "ul"
-		ul.append @__getThumbnail @__song_storage.retrieve id for id in @__song_storage.retrieve "index"
-		@__songs_container.html ul
+	__drawSongbook: ->
+		#console.log "__drawSongbook"
+		indexes = @__song_storage.retrieve "index"
+		if indexes.length is 0
+			@__el_songbook.text "You haven't loaded any songs yet."
+		
+		else
+			ul = $ document.createElement "ul"
+			ul.append @__getThumbnail @__song_storage.retrieve id for id in indexes
+			@__el_songbook.html ul
 
 	#
 	# Build a thumbnail of a song.
@@ -82,14 +87,20 @@ class App
 	__displaySong: (e) =>
 		#console.log "__displaySong"
 		@__selected_song = e.currentTarget.id.substr 5
-		@__song_container.html @__song_writer.toHtml @__crd_file_parser.parse (@__song_storage.getSong @__selected_song).content
+		@__el_songsheet.html @__song_writer.toHtml @__crd_file_parser.parse (@__song_storage.getSong @__selected_song).content
 	
+	#
+	# Store a new song from a string.
+	# @param song_content {String} The content of the song file.
+	#
 	__addSong:(song_content) =>
 		@__song_storage.addSong new CrdFile null, song_content
-		@__displaySongThumbs()
-		
+		@__drawSongbook()
+	
+	#
+	# Delete a song and redraw songbook.
+	#
 	__deleteSong: (e) =>
 		#console.log "__deleteSong"
 		@__song_storage.removeSong parseInt e.target.id.substr 7
-		@__displaySongThumbs()
-		
+		@__drawSongbook()
