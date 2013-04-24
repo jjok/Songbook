@@ -25,26 +25,23 @@ class App
 		console.log "initialising app"
 		@__el_songbook = $ "#songbook"
 		@__el_songsheet = $ "#songsheet"
-		@__drawSongbook()
-		@__crd_file_reader.activate @__addSong
-		
 		@__el_app = $ "#app"
 		@__el_panel = $ "#panel"
 		
-		if @__touch_support
-			doc = Hammer document
-			doc.on "swiperight", @__showPanel
-			doc.on "swipeleft", @__showSongsheet
-		else
-			@__el_panel.on "mouseenter", @__showPanel
-			@__el_songsheet.on "mouseenter", @__showSongsheet
+		@__drawSongbook()
+		@__crd_file_reader.activate @__addSong
 		
-	__showPanel: =>
-	#	console.log "__showPanel"
+		if !@__touch_support
+			@__el_panel.on "mouseenter", @showPanel
+			@__el_songsheet.on "mouseenter", @showSongsheet
+		
+	
+	showPanel: =>
+	#	console.log "showPanel"
 		@__el_app.addClass "showing-panel" if !@__el_app.hasClass "showing-panel"
 		
-	__showSongsheet: =>
-	#	console.log "__showSongsheet"
+	showSongsheet: =>
+	#	console.log "showSongsheet"
 		@__el_app.removeClass "showing-panel" if @__selected_song isnt null and @__el_app.hasClass "showing-panel"
 	
 	#

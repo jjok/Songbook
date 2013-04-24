@@ -17,6 +17,11 @@
 	@app = app
 	console.log app
 	
+	if Modernizr.touch
+		doc = Hammer document
+		doc.on "swiperight", @showPanel
+		doc.on "swipeleft", @showSongsheet
+	
 	# FireFoxFix
 	if !!navigator.userAgent.match /firefox/i
 	    label = $ "label[for='file-input']"

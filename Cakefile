@@ -10,7 +10,7 @@ appFiles = [
   'src/Song/Line.coffee'
   'src/Song/Section.coffee'
   'src/Song/Song.coffee'
-  'src/Settings.coffee'
+  #'src/Settings.coffee'
   'src/SongWriter.coffee'
   'src/init.coffee'
 ]
@@ -27,7 +27,7 @@ task 'build', 'Build single application file from source files', ->
   process = ->
     fs.writeFile 'combined.coffee', appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err
-      exec 'coffee --compile --output app/static/js combined.coffee', (err, stdout, stderr) ->
+      exec 'coffee --compile --output demo/static/js combined.coffee', (err, stdout, stderr) ->
         throw err if err
         console.log stdout + stderr
         fs.unlink 'combined.coffee', (err) ->
